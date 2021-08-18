@@ -31,7 +31,29 @@ public class LegacyLauncherPlatform implements IPlatform, IForgeablePlatform {
     }
 
     public List<IPlatformMod> getForgeMods() {
-        return Collections.emptyList();
+        if (isLegacyForge()) {
+            List<cpw.mods.fml.common.ModContainer> containers = cpw.mods.fml.common.Loader.instance().getModList();
+            return containers.stream()
+                    .map(c -> new PlatformModImpl(
+                            c.getName(),
+                            c.getModId(),
+                            c.getVersion(),
+                            c.getMetadata().authorList,
+                            c.getSource()
+                    ))
+                    .collect(Collectors.toList());
+        } else {
+            List<net.minecraftforge.fml.common.ModContainer> containers = net.minecraftforge.fml.common.Loader.instance().getModList();
+            return containers.stream()
+                    .map(c -> new PlatformModImpl(
+                            c.getName(),
+                            c.getModId(),
+                            c.getVersion(),
+                            c.getMetadata().authorList,
+                            c.getSource()
+                    ))
+                    .collect(Collectors.toList());
+        }
     }
 
     public List<IPlatformMod> getTweaks() {
