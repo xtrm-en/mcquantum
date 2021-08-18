@@ -6,6 +6,16 @@ plugins {
 group 'me.xtrm'
 version '1.0.0-SNAPSHOT'
 
+sourceSets {
+    mock {
+        compileClasspath += main.compileClasspath
+    }
+
+    main {
+        compileClasspath += mock.output
+    }
+}
+
 repositories {
     mavenCentral()
 }

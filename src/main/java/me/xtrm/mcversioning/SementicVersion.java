@@ -4,15 +4,17 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-public class MCVersion implements Comparable<MCVersion> {
+public class SementicVersion implements Comparable<SementicVersion> {
 
     private final int major;
     private final int minor;
     private final int patch;
 
+    private final String classifier;
+
     private final int comparableInt;
 
-    private MCVersion(String version) {
+    private SementicVersion(String version, String classifier) {
         String[] tokens = version.split(Pattern.quote("."));
         if (tokens.length > 3 || tokens.length < 2) {
             throw new UnsupportedOperationException("Invalid version: \"" + version + "\"");
@@ -26,6 +28,8 @@ public class MCVersion implements Comparable<MCVersion> {
             this.patch = 0;
         }
 
+        this.classifier = classifier;
+
         // this is gonna get ugly real quick
         String comparableString = String.format(
                 "%s%s%s",
@@ -36,17 +40,20 @@ public class MCVersion implements Comparable<MCVersion> {
         this.comparableInt = Integer.parseInt(comparableString);
     }
 
-    public static MCVersion from(String versionString) {
+    public static SementicVersion from(String versionString) {
         String version = versionString.toLowerCase(Locale.ROOT);
+        String classifier = null;
 
-        if (version.indexOf('-') != -1) {
-            version = version.split(Pattern.quote("-"))[0];
+        int index = version.indexOf('-');
+        if (index != -1) {
+            classifier = version.substring(index + 1);
+            version = version.substring(0, index);
         }
 
+        // Minecraft checks
         if (version.contains("w")) {
             throw new UnsupportedOperationException("Snapshot versions aren't supported.");
         }
-
         if (version.contains("a")
                 || version.contains("b")
                 || version.contains("c")
@@ -56,11 +63,11 @@ public class MCVersion implements Comparable<MCVersion> {
             throw new UnsupportedOperationException("Alpha/Beta/Indev versions aren't supported.");
         }
 
-        return new MCVersion(version);
+        return new SementicVersion(version, classifier);
     }
 
     @Override
-    public int compareTo(MCVersion that) {
+    public int compareTo(SementicVersion that) {
         if(that == null) {
             throw new IllegalArgumentException("Cannot compare to null.");
         }
@@ -70,19 +77,14 @@ public class MCVersion implements Comparable<MCVersion> {
 
     @Override
     public String toString() {
-        return "MCVersion{" +
-                "major=" + major +
-                ", minor=" + minor +
-                ", patch=" + patch +
-                ", toString=" + comparableInt +
-                '}';
+        return major + "." + minor + "." + patch + (this.classifier != null ? "-" + classifier : "");
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        MCVersion mcVersion = (MCVersion) o;
+        SementicVersion mcVersion = (SementicVersion) o;
         return major == mcVersion.major && minor == mcVersion.minor && patch == mcVersion.patch;
     }
 
