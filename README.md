@@ -29,4 +29,4 @@ this project is under the [ISC license][blob-license].
 
 [new-pr]: https://github.com/xtrm-en/mcquantum/pulls/new "create a new pull request"
 
-[blob-license]: https://github.com/xtrm-en/mcquantum/blob/main/LICENSE "LICENSE source file"
+[blob-license]: https://github.com/xtrm-en/mcquantum/blob/trunk/LICENSE "LICENSE source file"
