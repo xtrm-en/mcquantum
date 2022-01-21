@@ -15,3 +15,18 @@ functionality and usage.
 | [launching](./launching)           | allows for launching/management of minecraft instances         |
 | [mapping](./mapping)               | translate, parse, and use mapping files and types              |
 | [versioning](./versioning)         | classes and comparators for minecraft versions                 |
+
+# contributing
+
+you can contribute by [forking the repository][fork], making your changes and [creating a new pull request][new-pr]
+describing what you changed, why and how.
+
+# licensing
+
+this project is under the [ISC license][blob-license].
+
+[fork]: https://github.com/xtrm-en/mcquantum/fork "fork this repository"
+
+[new-pr]: https://github.com/xtrm-en/mcquantum/pulls/new "create a new pull request"
+
+[blob-license]: https://github.com/xtrm-en/mcquantum/blob/main/LICENSE "LICENSE source file"
