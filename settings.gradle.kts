@@ -1,7 +1,5 @@
 rootProject.name = "mcquantum"
-include("versioning")
-include("authentication")
-include("analysis")
-include("describe")
-include("launching")
-include("mapping")
+
+rootDir.listFiles()!!.filter {
+    it.isDirectory && File(it, "build.gradle.kts").exists()
+}.forEach { include(it.name) }
