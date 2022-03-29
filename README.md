@@ -1,6 +1,6 @@
 # mcquantum
 
-general-purpose library to ease minecraft-related tasks.
+~~general-purpose library to ease minecraft-related tasks.~~
 
 **Note:** this library bas been archived and superseded by
 **[stardust-enterprises/atlas-framework](https://github.com/stardust-enterprises/atlas-framework)**'s standalone modules.
